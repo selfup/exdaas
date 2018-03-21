@@ -1,0 +1,14 @@
+/_build
+/db
+/deps
+/*.ez
+erl_crash.dump
+/config/*.secret.exs
+.env
+run.log
+*.DS_Store
+exdaas_*
+*_*_release
+*_release
+*release
+*.tar.gz

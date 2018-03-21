@@ -1,0 +1,11 @@
+.git
+*Dockerfile*
+*docker-compose*
+_build
+erl_crash.dump
+scripts
+test
+*.log
+
+# ignore local DETS data
+exdaas_*

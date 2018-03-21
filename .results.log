@@ -1,0 +1,47 @@
+This is ApacheBench, Version 2.3 <$Revision: 1796539 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 0.0.0.0 (be patient)
+
+
+Server Software:        Cowboy
+Server Hostname:        0.0.0.0
+Server Port:            4000
+
+Document Path:          /api
+Document Length:        32 bytes
+
+Concurrency Level:      300
+Time taken for tests:   5.479 seconds
+Complete requests:      2000
+Failed requests:        51
+   (Connect: 0, Receive: 0, Length: 51, Exceptions: 0)
+Keep-Alive requests:    1988
+Total transferred:      570556 bytes
+Total body sent:        486000
+HTML transferred:       63616 bytes
+Requests per second:    365.02 [#/sec] (mean)
+Time per request:       821.879 [ms] (mean)
+Time per request:       2.740 [ms] (mean, across all concurrent requests)
+Transfer rate:          101.69 [Kbytes/sec] received
+                        86.62 kb/s sent
+                        188.31 kb/s total
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    5  18.8      0     112
+Processing:    10  102 378.4     61    4951
+Waiting:       10   73  39.5     60     230
+Total:         10  107 379.3     61    4951
+
+Percentage of the requests served within a certain time (ms)
+  50%     61
+  66%     79
+  75%     94
+  80%    110
+  90%    140
+  95%    225
+  98%    242
+  99%    249
+ 100%   4951 (longest request)
