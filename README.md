@@ -4,6 +4,12 @@ Elixir Database as a Service
 
 Serialized - fault tolerant - self caching - NoSQL DB :rocket:
 
+Provides a RESTful API that can handle concurrent requests (Phoenix) but serializes all writes to disk.
+
+DiskIO is delegated via DETS and all cache is handled using ETS.
+
+_Suprisingly performant_ :smile:
+
 ### Deploying to Heroku
 
 **You will need Docker for this**
