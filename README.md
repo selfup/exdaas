@@ -53,8 +53,29 @@ Mean 12.5k req/s in an Alpine Docker Container running on Ubuntu 17.10 in produc
 You will need two tabs/panes/shell for this:
 
 1. Build the container and run it: `./scripts/test.sh`
-2. Wait for: `Attaching to bmadelelixirservice_prod 1`
+2. Wait for: `Attaching to exdaas_prod_1`
 3. Run the bench suite in a different shell/pane/tab: `./scripts/bench.sh`
+
+#### Another Alternative for Benching
+
+```bash
+if [ -f exdaas_persistance_table ]; then $(rm exdaas_persistance_table); fi \
+  && iex -S mix phx.server
+```
+
+```elixir
+alias ExDaas.Dets.Table, as: DetsTable
+
+data = %{color: "blue"}
+
+# this will be cold cache
+0..20_000 |> Enum.each(fn i -> DetsTable.fetch(i, data) end)
+
+# this will be warm cache
+0..20_000 |> Enum.each(fn i -> DetsTable.fetch(i, data) end)
+```
+
+Exit the shell and `rm exdaas_persistance_table`
 
 ### LICENSE
 

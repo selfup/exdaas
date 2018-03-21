@@ -6,10 +6,10 @@ defmodule ExDaas.Application do
 
     children = [
       supervisor(ExDaasWeb.Endpoint, []),
-      supervisor(Data.Supervisor, []),
+      supervisor(ExDaas.Supervisor, []),
     ]
 
-    opts = [strategy: :one_for_one, name: ExDaas.Supervisor]
+    opts = [strategy: :one_for_one, name: ExDaas.Main.Supervisor]
     Supervisor.start_link(children, opts)
   end
 

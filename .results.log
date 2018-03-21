@@ -13,35 +13,34 @@ Document Path:          /api
 Document Length:        32 bytes
 
 Concurrency Level:      300
-Time taken for tests:   5.479 seconds
-Complete requests:      2000
-Failed requests:        51
-   (Connect: 0, Receive: 0, Length: 51, Exceptions: 0)
-Keep-Alive requests:    1988
-Total transferred:      570556 bytes
-Total body sent:        486000
-HTML transferred:       63616 bytes
-Requests per second:    365.02 [#/sec] (mean)
-Time per request:       821.879 [ms] (mean)
-Time per request:       2.740 [ms] (mean, across all concurrent requests)
-Transfer rate:          101.69 [Kbytes/sec] received
-                        86.62 kb/s sent
-                        188.31 kb/s total
+Time taken for tests:   2.064 seconds
+Complete requests:      20000
+Failed requests:        0
+Keep-Alive requests:    20000
+Total transferred:      5740000 bytes
+Total body sent:        4860000
+HTML transferred:       640000 bytes
+Requests per second:    9691.06 [#/sec] (mean)
+Time per request:       30.956 [ms] (mean)
+Time per request:       0.103 [ms] (mean, across all concurrent requests)
+Transfer rate:          2716.15 [Kbytes/sec] received
+                        2299.73 kb/s sent
+                        5015.88 kb/s total
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    5  18.8      0     112
-Processing:    10  102 378.4     61    4951
-Waiting:       10   73  39.5     60     230
-Total:         10  107 379.3     61    4951
+Connect:        0    0   1.2      0      11
+Processing:     2   31  16.4     27     114
+Waiting:        1   31  16.4     27     114
+Total:          2   31  16.6     27     114
 
 Percentage of the requests served within a certain time (ms)
-  50%     61
-  66%     79
-  75%     94
-  80%    110
-  90%    140
-  95%    225
-  98%    242
-  99%    249
- 100%   4951 (longest request)
+  50%     27
+  66%     34
+  75%     40
+  80%     43
+  90%     54
+  95%     63
+  98%     76
+  99%     84
+ 100%    114 (longest request)

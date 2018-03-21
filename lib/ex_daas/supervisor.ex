@@ -1,4 +1,4 @@
-defmodule Data.Supervisor do
+defmodule ExDaas.Supervisor do
   alias ExDaas.Ets.Table, as: EtsTable
   alias ExDaas.Dets.Table, as: DetsTable
 
