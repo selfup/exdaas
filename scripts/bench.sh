@@ -1,6 +1,6 @@
 ab \
-  -n 20000 \
-  -c 300 \
+  -n 10000 \
+  -c 500 \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
   -T "application/json" \
