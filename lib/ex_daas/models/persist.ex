@@ -1,11 +1,9 @@
 defmodule ExDaas.Persist.Model do
-  @table :exdaas_persistance_table
-
-  def create_or_update(key, value) do
-    :dets.insert(@table, {key, value})
+  def create_or_update(key, value, dets_table) do
+    :dets.insert(dets_table, {key, value})
   end
 
-  def delete(id) do
-    :dets.delete(@table, id)
+  def delete(id, dets_table) do
+    :dets.delete(dets_table, id)
   end
 end

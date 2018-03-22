@@ -6,6 +6,6 @@ defmodule ExDaasWeb.ApiController do
   end
 
   defp fetch(id, data) do
-    ExDaas.Dets.Table.fetch(id, data)
+    ExDaas.Ets.Table.fetch(id, data)
   end
 end

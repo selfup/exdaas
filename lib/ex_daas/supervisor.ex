@@ -9,9 +9,19 @@ defmodule ExDaas.Supervisor do
   end
 
   def init(:ok) do
+    dets_tables = [
+      :dets_table_one,
+      :dets_table_two,
+      :dets_table_three,
+      :dets_table_four,
+    ]
+
     children = [
-      worker(EtsTable, [[name: EtsTable]]),
-      worker(DetsTable, [[name: DetsTable]]),
+      worker(EtsTable, [[name: EtsTable, dets_tables: dets_tables]]),
+      worker(DetsTable, [[name: Enum.at(dets_tables, 0)]], [id: 1]),
+      worker(DetsTable, [[name: Enum.at(dets_tables, 1)]], [id: 2]),
+      worker(DetsTable, [[name: Enum.at(dets_tables, 2)]], [id: 3]),
+      worker(DetsTable, [[name: Enum.at(dets_tables, 3)]], [id: 4]),
     ]
 
     supervise(children, strategy: :one_for_one)

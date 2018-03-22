@@ -65,20 +65,20 @@ You will need two tabs/panes/shell for this:
 #### Another Alternative for Benching
 
 ```bash
-if [ -f exdaas_persistance_table ]; then $(rm exdaas_persistance_table); fi \
+if [ -f exdaas_persistance_table ]; then $(rm dets_table_*); fi \
   && iex -S mix phx.server
 ```
 
 ```elixir
-alias ExDaas.Dets.Table, as: DetsTable
+alias ExDaas.Ets.Table, as: EtsTable
 
 data = %{color: "blue"}
 
 # this will be cold cache
-0..20_000 |> Enum.each(fn i -> DetsTable.fetch(i, data) end)
+0..20_000 |> Enum.each(fn i -> EtsTable.fetch(i, data) end)
 
 # this will be warm cache
-0..20_000 |> Enum.each(fn i -> DetsTable.fetch(i, data) end)
+0..20_000 |> Enum.each(fn i -> EtsTable.fetch(i, data) end)
 ```
 
 Exit the shell and `rm exdaas_persistance_table`

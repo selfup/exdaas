@@ -3,7 +3,7 @@ defmodule ExDaasWeb.UserControllerTest do
 
   setup do
     :ets.delete_all_objects(:exdaas_cache_table) &&
-    :dets.delete_all_objects(:exdaas_persistance_table)
+    :dets.delete_all_objects(:dets_table_one)
   end
 
   def query() do
