@@ -2,6 +2,7 @@ defmodule ExDaas.Cache.Model do
   alias ExDaas.Persist.Model, as: Persist
 
   @counter :user_id_counter
+  @counter_table :dets_counter
   @table :exdaas_cache_table
 
   def fetch(id, data, dets_table) do
@@ -20,8 +21,11 @@ defmodule ExDaas.Cache.Model do
     end
   end
 
-  defp new_user(data, dets_table) do
-    new_count = increment_counter(dets_table)
+  def new_user(data, dets_tables) do
+    new_count = increment_counter(@counter_table)
+
+    dets_table = Enum.at(dets_tables, rem(new_count, length(dets_tables)))
+
     %{id: new_count, data: set(new_count, data, dets_table)}
   end
 

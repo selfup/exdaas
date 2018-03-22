@@ -22,6 +22,7 @@ defmodule ExDaas.Supervisor do
       worker(DetsTable, [[name: Enum.at(dets_tables, 1)]], [id: 2]),
       worker(DetsTable, [[name: Enum.at(dets_tables, 2)]], [id: 3]),
       worker(DetsTable, [[name: Enum.at(dets_tables, 3)]], [id: 4]),
+      worker(DetsTable, [[name: :dets_counter]], [id: 5]),
     ]
 
     supervise(children, strategy: :one_for_one)

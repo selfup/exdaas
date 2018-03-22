@@ -10,7 +10,6 @@ defmodule ExDaas.Ets.Table do
       {:ets_table_name, :exdaas_cache_table},
       {:log_limit, 1_000_000},
       {:dets_tables, dets_tables},
-      {:position, 0},
     ], opts)
   end
 
@@ -18,33 +17,16 @@ defmodule ExDaas.Ets.Table do
     GenServer.call(__MODULE__, {:fetch, {id, data}})
   end
 
-  def update_pos_state(state, dets_tables, position) do
-    case (position + 1) == length(dets_tables) do
-      true -> Map.put(state, :position, 0)
-      false -> Map.put(state, :position, position + 1)
+  def handle_call({:fetch, {id, data}}, _from, state) do
+    %{dets_tables: dets_tables} = state
+
+    case is_number(id) do
+      true ->
+        table = Enum.at(dets_tables, rem(id, length(dets_tables)))
+        {:reply, Model.fetch(id, data, table), state}
+      false ->
+        {:reply, Model.new_user(data, dets_tables), state}
     end
-  end
-
-  def handle_call({:fetch, {id, data}}, _from, app_state) do
-    %{position: position, dets_tables: dets_tables} = app_state
-
-    state = update_pos_state(app_state, dets_tables, position)
-
-    %{position: new_position} = state
-
-    # TODO
-    # TODO
-
-    # Instead of having a random table per request
-    # Divide or Modulo by the id to ensure that data
-    # always gets written to the same table for the same id
-    
-    # TODO
-    # TODO
-
-    {:reply,
-      Model.fetch(id, data, Enum.at(dets_tables, new_position)),
-     state}
   end
 
   def init(args) do
@@ -52,21 +34,17 @@ defmodule ExDaas.Ets.Table do
       {:ets_table_name, ets_table_name},
       {:log_limit, log_limit},
       {:dets_tables, dets_tables},
-      {:position, position},  
     ] = args
     
-    :ets.new(ets_table_name, [
-      :named_table,
-      :set,
-      :public,
-    ])
+    :ets.new(ets_table_name, [:named_table, :set, :public])
     
     {:ok,
       %{
         log_limit: log_limit,
         ets_table_name: ets_table_name,
         dets_tables: dets_tables,
-        position: position,
+        read_concurrency: true,
+        write_concurrency: true,
       },
     }
   end

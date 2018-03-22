@@ -13,3 +13,4 @@ exdaas_*
 *release
 *.tar.gz
 dets_table_*
+dets_counter

@@ -1,9 +1,12 @@
-defmodule ExDaasWeb.UserControllerTest do
+defmodule ExDaasWeb.ApiControllerTest do
   use ExDaasWeb.ConnCase
 
   setup do
     :ets.delete_all_objects(:exdaas_cache_table) &&
-    :dets.delete_all_objects(:dets_table_one)
+    :dets.delete_all_objects(:dets_table_one) &&
+    :dets.delete_all_objects(:dets_table_two) &&
+    :dets.delete_all_objects(:dets_table_three) &&
+    :dets.delete_all_objects(:dets_table_four)
   end
 
   def query() do
