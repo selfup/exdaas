@@ -32,9 +32,6 @@ defmodule ExDaasWeb.ApiControllerTest do
   end
 
   test "POST /api - slam api" do
-    query(1)
-    query(1)
-
     # 10k new records
 
     cold_time = :os.system_time(:seconds)
