@@ -44,7 +44,6 @@ defmodule ExDaas.Ets.Table do
         ets_table_name: ets_table_name,
         dets_tables: dets_tables,
         read_concurrency: true,
-        write_concurrency: true,
       },
     }
   end
