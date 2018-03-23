@@ -65,7 +65,8 @@ You will need two tabs/panes/shell for this:
 #### Another Alternative for Benching
 
 ```bash
-if [ -f dets_table_one ]; then $(rm dets_table_*); fi \
+if [ -f dets_counter ]; then $(rm dets_counter); fi \
+  && if [ -f dets_table_one ]; then $(rm dets_table_*); fi \
   && iex -S mix phx.server
 ```
 
