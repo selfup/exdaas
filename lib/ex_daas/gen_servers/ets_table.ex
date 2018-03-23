@@ -3,14 +3,13 @@ defmodule ExDaas.Ets.Table do
 
   use GenServer
 
-  @moduledoc """
-  Use GenServer to recreate table in Supervision tree in case of failure
-  """
-
   def start_link(opts \\ []) do
+    [_, dets_tables: dets_tables] = opts
+
     GenServer.start_link(__MODULE__, [
       {:ets_table_name, :exdaas_cache_table},
       {:log_limit, 1_000_000},
+      {:dets_tables, dets_tables},
     ], opts)
   end
 
@@ -19,19 +18,33 @@ defmodule ExDaas.Ets.Table do
   end
 
   def handle_call({:fetch, {id, data}}, _from, state) do
-    {:reply, Model.fetch(id, data), state}
+    %{dets_tables: dets_tables} = state
+
+    case is_number(id) do
+      true ->
+        table = Enum.at(dets_tables, rem(id, length(dets_tables)))
+        {:reply, Model.fetch(id, data, table), state}
+      false ->
+        {:reply, Model.new_user(data, dets_tables), state}
+    end
   end
 
   def init(args) do
-    [{:ets_table_name, ets_table_name}, {:log_limit, log_limit}] = args
+    [
+      {:ets_table_name, ets_table_name},
+      {:log_limit, log_limit},
+      {:dets_tables, dets_tables},
+    ] = args
     
-    :ets.new(ets_table_name, [
-      :named_table,
-      :set,
-      :public,
-      read_concurrency: true,
-    ])
+    :ets.new(ets_table_name, [:named_table, :set, :public])
     
-    {:ok, %{log_limit: log_limit, ets_table_name: ets_table_name}}
+    {:ok,
+      %{
+        log_limit: log_limit,
+        ets_table_name: ets_table_name,
+        dets_tables: dets_tables,
+        read_concurrency: true,
+      },
+    }
   end
 end
