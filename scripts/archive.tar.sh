@@ -5,7 +5,7 @@ function createArchive() {
 
 if [ -d archive ]
 then
-  createArchive
+  rm -rf archive.tar.gz && createArchive
 else
   mkdir archive && createArchive
 fi

@@ -1,4 +1,4 @@
-defmodule ExDaas.Dets.Table do
+defmodule ExDaas.Dets.Counter.Table do
   alias ExDaas.Cache.Model, as: Model
   use GenServer
 
@@ -12,25 +12,17 @@ defmodule ExDaas.Dets.Table do
   end
 
   def init(args) do
-    [
-      {:name, name},
-      {:ets_table, ets_table},
-    ] = args
+    [{:name, name}, {:ets_table, ets_table}] = args
     
     {:ok, _} = :dets.open_file(name, [type: :set])
 
     case :dets.select(name, [{:"$1", [], [:"$1"]}]) do
       [] ->
-        nil
+        :dets.insert(name, {:counter, 1})
       payload ->
         Model.load_from_dets(payload, ets_table) 
     end
 
-    {:ok,
-      %{
-        name: name,
-        ets_table: ets_table,
-      },
-    }
+    {:ok, %{name: name, ets_table: ets_table}}
   end
 end

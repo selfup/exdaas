@@ -15,3 +15,5 @@ exdaas_*
 dets_table_*
 dets_counter
 archive
+archive*
+*.zip

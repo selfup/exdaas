@@ -2,11 +2,16 @@ defmodule ExDaasWeb.ApiControllerTest do
   use ExDaasWeb.ConnCase
 
   setup do
-    :ets.delete_all_objects(:exdaas_cache_table) &&
-    :dets.delete_all_objects(:dets_table_one) &&
-    :dets.delete_all_objects(:dets_table_two) &&
-    :dets.delete_all_objects(:dets_table_three) &&
-    :dets.delete_all_objects(:dets_table_four)
+    :ets.delete_all_objects(:"ets_table_0") &&
+    :ets.delete_all_objects(:"ets_table_1") &&
+    :ets.delete_all_objects(:"ets_table_2") &&
+    :ets.delete_all_objects(:"ets_table_3") &&
+    :dets.delete_all_objects(:dets_table_0) &&
+    :dets.delete_all_objects(:dets_table_1) &&
+    :dets.delete_all_objects(:dets_table_2) &&
+    :dets.delete_all_objects(:dets_table_3) &&
+    :ets.delete_all_objects(:"ets_counter") &&
+    :dets.delete_all_objects(:"dets_counter")
   end
 
   def query() do
@@ -35,17 +40,17 @@ defmodule ExDaasWeb.ApiControllerTest do
     # 10k new records
 
     cold_time = :os.system_time(:seconds)
-    0..10_000
+    0..20_000
     |> Enum.map(fn i -> Task.async(fn -> query(i) end) end)
     |> Enum.each(fn t -> Task.await(t) end)
     IO.puts "\n Cold slam seconds: #{:os.system_time(:seconds) - cold_time}"
 
-    assert json_response(query(10_000), 200) == %{"id" => 10_000, "data" => %{"color" => "blue"}}
+    assert json_response(query(20_000), 200) == %{"id" => 20_000, "data" => %{"color" => "blue"}}
 
     # 10k identical records
 
     warm_time = :os.system_time(:seconds)
-    0..10_000
+    0..20_000
     |> Enum.map(fn i -> Task.async(fn -> query(i) end) end)
     |> Enum.each(fn t -> Task.await(t) end)
     IO.puts " Warm slam seconds: #{:os.system_time(:seconds) - warm_time}"
