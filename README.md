@@ -105,6 +105,9 @@ alias ExDaas.Ets.Table, as: EtsTable
 
 data = %{color: "blue"}
 
+# if you changed SHARD_LIMIT
+# ex: SHARD_LIMIT=24
+# change 0..3 to 0..23 (or limit - 1)
 ets_tables = 0..3 |> Enum.map(fn i -> :"ets_table_#{i}" end)
 
 # this will be cold cache
