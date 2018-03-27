@@ -10,9 +10,13 @@ All serialized writes can be split up by amount of shards.
 
 Default shard size is 4. Any other wanted size can be set via `SHARD_LIMIT` (Any number above 0).
 
-DiskIO is delegated via DETS and all cache is handled using ETS.
+DiskIO is delegated via [DETS](http://erlang.org/doc/man/dets.html) and all cache is handled using [ETS](https://elixir-lang.org/getting-started/mix-otp/ets.html).
 
 If the entire app fails, the data is loaded form disk into cache, and performance is back to normal.
+
+Example supervision tree of a default shard size (4):
+
+![](https://user-images.githubusercontent.com/9837366/37997853-005b93e0-31e2-11e8-9fe7-0e33eb54f943.PNG) 
 
 _Suprisingly performant_ :smile:
 
@@ -63,7 +67,7 @@ Make sure you have your ssh key as an authorized key for your target node!
 
 ### Current Benchmarks
 
-Mean ~12.3k req/s in an Alpine Docker Container running on Ubuntu 17.10 in production mode on a 2 Core Intel i7 from 2013
+~12k req/s in an Alpine Docker Container running on Ubuntu 17.10 in production mode on a 2 Core Intel i7 from 2013
 
 **CPU Info**
 
@@ -125,7 +129,7 @@ end)
 end)
 ```
 
-Exit the shell and `rm exdaas_persistance_table`
+Exit the shell and `rm dets_*`
 
 ### LICENSE
 
