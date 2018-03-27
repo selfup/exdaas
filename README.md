@@ -58,8 +58,8 @@ Make sure you have your ssh key as an authorized key for your target node!
 
 ### Backing up data
 
-1. Tarball: `./scripts/archive.tar.sh
-2. Zip: `./scripts/achrive.zip.sh
+1. Tarball: `./scripts/archive.tar.sh`
+2. Zip: `./scripts/achrive.zip.sh`
 
 ### Current Benchmarks
 
