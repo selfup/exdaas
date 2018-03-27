@@ -63,7 +63,18 @@ Make sure you have your ssh key as an authorized key for your target node!
 
 ### Current Benchmarks
 
-Mean ~12.3k req/s in an Alpine Docker Container running on Ubuntu 17.10 in production mode on a 2 Core Intel i7 from 2014
+Mean ~12.3k req/s in an Alpine Docker Container running on Ubuntu 17.10 in production mode on a 2 Core Intel i7 from 2013
+
+**CPU Info**
+
+```bash
+Model name:          Intel(R) Core(TM) i7-4558U CPU @ 2.80GHz
+CPU(s):              4
+On-line CPU(s) list: 0-3
+Thread(s) per core:  2
+Core(s) per socket:  2
+Socket(s):           1
+```
 
 #### To run benchmarks
 
