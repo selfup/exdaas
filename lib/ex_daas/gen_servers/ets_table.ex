@@ -6,10 +6,14 @@ defmodule ExDaas.Ets.Table do
   def start_link(opts \\ []) do
     [name: name, dets_table: dets_table] = opts
 
-    GenServer.start_link(__MODULE__, [
-      {:name, name},
-      {:dets_table, dets_table},
-    ], opts)
+    GenServer.start_link(
+      __MODULE__,
+      [
+        {:name, name},
+        {:dets_table, dets_table}
+      ],
+      opts
+    )
   end
 
   def fetch(id, data, ets_table) do
@@ -24,16 +28,15 @@ defmodule ExDaas.Ets.Table do
   def init(args) do
     [
       {:name, name},
-      {:dets_table, dets_table},
+      {:dets_table, dets_table}
     ] = args
-    
+
     :ets.new(name, [:named_table, :set, :public, read_concurrency: true])
-    
+
     {:ok,
-      %{
-        name: name,
-        dets_table: dets_table,
-      },
-    }
+     %{
+       name: name,
+       dets_table: dets_table
+     }}
   end
 end

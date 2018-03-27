@@ -6,7 +6,7 @@ defmodule ExDaas.Application do
 
     children = [
       supervisor(ExDaasWeb.Endpoint, []),
-      supervisor(ExDaas.Supervisor, []),
+      supervisor(ExDaas.Supervisor, [])
     ]
 
     opts = [strategy: :one_for_one, name: ExDaas.Main.Supervisor]

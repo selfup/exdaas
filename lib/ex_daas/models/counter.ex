@@ -7,6 +7,7 @@ defmodule ExDaas.Cache.Counter.Model do
     case is_number(id) do
       true ->
         id
+
       false ->
         increment_counter()
     end
@@ -22,6 +23,7 @@ defmodule ExDaas.Cache.Counter.Model do
     case :ets.lookup(@ets_counter, @counter) do
       [] ->
         set_counter(1)
+
       [{_counter, current_count}] ->
         set_counter(current_count + 1)
     end

@@ -8,7 +8,7 @@ defmodule ExDaasWeb.ApiController do
     uid = Counter.new_id(id)
     shard = rem(uid, length(@en))
 
-    json conn, fetch(uid, data, Enum.at(@en, shard))
+    json(conn, fetch(uid, data, Enum.at(@en, shard)))
   end
 
   defp fetch(id, data, ets_table) do

@@ -12,6 +12,7 @@ defmodule ExDaas.Cache.Model do
     case get(id, ets_table) do
       {:not_found} ->
         %{id: id, data: set(id, data, ets_table, dets_table)}
+
       {:found, id_data} ->
         %{id: id, data: already_in(id, data, id_data, ets_table, dets_table)}
     end
@@ -25,7 +26,7 @@ defmodule ExDaas.Cache.Model do
   end
 
   def load_from_dets(payload, ets_table) do
-    IO.puts "\nLOADING DATA FROM DETS INTO ETS\n"
+    IO.puts("\nLOADING DATA FROM DETS INTO ETS\n")
     true = :ets.insert(ets_table, payload)
   end
 
@@ -34,7 +35,7 @@ defmodule ExDaas.Cache.Model do
     Persist.create_or_update(id, data, dets_table)
     data
   end
-  
+
   def remove_user(id, dets_table) do
     true = :ets.delete(id)
     Persist.delete(id, dets_table)
