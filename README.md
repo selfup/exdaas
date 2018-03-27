@@ -100,6 +100,8 @@ _You may set `SHARD_LIMIT` to any positive number over 0_
 SHARD_LIMIT=16 ./scripts/console.bench.sh
 ```
 
+_Remember this is synchronous and using a stream or a parallel map can be more realistic_
+
 ```elixir
 alias ExDaas.Ets.Table, as: EtsTable
 
