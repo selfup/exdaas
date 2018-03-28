@@ -40,9 +40,6 @@ defmodule ExDaas.Cache.Counter.Model do
   end
 
   defp make_tables(nums, type) do
-    case type do
-      :ets -> Enum.map(nums, fn i -> :"ets_table_#{i}" end)
-      :dets -> Enum.map(nums, fn i -> :"dets_table_#{i}" end)
-    end
+    Enum.map(nums, fn i -> :"#{to_string(type)}_table_#{i}" end)
   end
 end
