@@ -20,6 +20,7 @@ Example supervision tree of a default shard size (4):
 
 _Suprisingly performant_ :smile:
 
+<!--
 ### Deploying to Heroku
 
 **You will need Docker for this**
@@ -42,6 +43,7 @@ Now: `APP_NAME=<app_name> heroku container:push web --app $APP_NAME`
 Run: `./scripts/secret.sh && APP_NAME=<app_name> heroku container:push web --app $APP_NAME`
 
 Or use the script: `APP_NAME=<app_name> ./scripts/heroku.sh`
+-->
 
 ### Deploying to Digital Ocean/Vultr/EC2
 
