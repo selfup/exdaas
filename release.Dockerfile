@@ -1,14 +1,12 @@
 FROM ubuntu:16.04
 
-ENV LANG en_US.UTF-8
+ENV DEBIAN_FRONTEND noninteractive
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
-RUN apt-get -qq update && apt-get -qqy install locales
-RUN sed -i -e 's/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen && \
-    sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
-    locale-gen && \
-    update-locale LANG=ru_RU.UTF-8 && \
-    echo "LANGUAGE=ru_RU.UTF-8" >> /etc/default/locale && \
-    echo "LC_ALL=ru_RU.UTF-8" >> /etc/default/locale
+RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
+    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+
+ENV LANG en_US.utf8
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
