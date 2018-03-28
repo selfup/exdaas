@@ -9,5 +9,6 @@ defmodule ExDaasWeb.Router do
     pipe_through(:api)
 
     post("/", ApiController, :create_or_update)
+    get("/", ApiController, :show)
   end
 end
