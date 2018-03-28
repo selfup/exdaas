@@ -1,5 +1,7 @@
 FROM ubuntu:16.04
 
+ENV LANG en_US.UTF-8
+
 RUN apt-get -qq update && apt-get -qqy install locales
 RUN sed -i -e 's/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen && \
     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
