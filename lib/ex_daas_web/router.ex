@@ -8,6 +8,6 @@ defmodule ExDaasWeb.Router do
   scope "/api", ExDaasWeb do
     pipe_through(:api)
 
-    post("/", ApiController, :find)
+    post("/", ApiController, :create_or_update)
   end
 end

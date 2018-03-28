@@ -28,4 +28,21 @@ defmodule ExDaas.Cache.Counter.Model do
         set_counter(current_count + 1)
     end
   end
+
+  def shard_count_tables(type) do
+    case Integer.parse(System.get_env("SHARD_LIMIT") || "") do
+      :error ->
+        0..3 |> make_tables(type)
+
+      {limit, _} ->
+        0..(limit - 1) |> make_tables(type)
+    end
+  end
+
+  defp make_tables(nums, type) do
+    case type do
+      :ets -> Enum.map(nums, fn i -> :"ets_table_#{i}" end)
+      :dets -> Enum.map(nums, fn i -> :"dets_table_#{i}" end)
+    end
+  end
 end

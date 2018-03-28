@@ -1,6 +1,4 @@
 defmodule ExDaas.Ets.Counter.Table do
-  alias ExDaas.Cache.Model, as: Model
-
   use GenServer
 
   def start_link(opts \\ []) do
@@ -13,14 +11,6 @@ defmodule ExDaas.Ets.Counter.Table do
       ],
       opts
     )
-  end
-
-  def new_id(ets_table) do
-    GenServer.call(ets_table, {:new_id, {}})
-  end
-
-  def handle_call({:new_id, {}}, _from, state) do
-    {:reply, Model.new_id(), state}
   end
 
   def init(args) do

@@ -1,9 +1,6 @@
 defmodule ExDaas.Cache.Model do
   alias ExDaas.Persist.Model, as: Persist
 
-  @counter :user_id_counter
-  @counter_table :dets_counter
-
   def fetch(id, data, ets_table, dets_table) do
     existing_data?(id, data, ets_table, dets_table)
   end

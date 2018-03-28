@@ -2,6 +2,7 @@ defmodule ExDaas.Supervisor do
   alias ExDaas.Ets.Table, as: EtsTable
   alias ExDaas.Ets.Counter.Table, as: EtsCounter
   alias ExDaas.Dets.Table, as: DetsTable
+  alias ExDaas.Cache.Counter.Model, as: Counter
 
   use Supervisor
 
@@ -9,27 +10,9 @@ defmodule ExDaas.Supervisor do
     Supervisor.start_link(__MODULE__, :ok, name: __MODULE__)
   end
 
-  def shard_calc do
-    x_limit = 4
-
-    shard_limit =
-      case System.get_env("SHARD_LIMIT") do
-        nil ->
-          x_limit
-
-        num ->
-          case Integer.parse(num) do
-            {limit, _} -> limit
-            :error -> x_limit
-          end
-      end
-
-    0..(shard_limit - 1)
-  end
-
   def init(:ok) do
-    ets_table_names = shard_calc() |> Enum.map(fn i -> :"ets_table_#{i}" end)
-    dets_table_names = shard_calc() |> Enum.map(fn i -> :"dets_table_#{i}" end)
+    ets_table_names = Counter.shard_count_tables(:ets)
+    dets_table_names = Counter.shard_count_tables(:dets)
 
     dets_tables =
       dets_table_names
