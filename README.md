@@ -69,7 +69,7 @@ Make sure you have your ssh key as an authorized key for your target node!
 
 ### Current Benchmarks
 
-~12k req/s in an Alpine Docker Container running on Ubuntu 17.10 in production mode on a 2 Core Intel i7 from 2013
+~13k req/s in an Alpine Docker Container running on Ubuntu 17.10 in production mode on a 2 Core Intel i7 from 2013
 
 **CPU Info**
 
@@ -89,6 +89,10 @@ You will need two tabs/panes/shell for this:
 1. Build the container and run it: `./scripts/test.sh`
 2. Wait for: `Attaching to exdaas_prod_1`
 3. Run the bench suite in a different shell/pane/tab: `./scripts/bench.sh`
+
+        a. To keep changes in git HEAD pass the `-c` flag
+        b. Ex: `./scripts/bench.sh -c`
+        c. Otherwise the `.results.log` file will be checked out
 
 #### Another Alternative for Benching
 

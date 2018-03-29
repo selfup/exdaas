@@ -1,8 +1,8 @@
 logfile=.results.log
 
 ab \
-  -n 5000 \
-  -c 100 \
+  -n 50000 \
+  -c 500 \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
   -T "application/json" \
