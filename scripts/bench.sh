@@ -13,7 +13,10 @@ ab \
     $(grep -w second $logfile)
   "
 
-if [ $BENCH_LOG ]
+# if you pass the -c flag
+# the script will keep changes in git for the logfile
+
+if [ "$1" == "-c" ]
 then
   echo "--> entire benchmark output:
     updated in $(pwd)/$logfile
