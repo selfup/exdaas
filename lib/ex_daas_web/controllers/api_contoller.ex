@@ -7,7 +7,7 @@ defmodule ExDaasWeb.ApiController do
   @ets_tables Counter.shard_count_tables(:ets)
 
   def show(conn, %{"id" => id} = _params) do
-    json(conn, %{id: id, data: data(id)})
+    json(conn, %{id: is_num_or_nil(id), data: is_num_or_nil(id) |> data()})
   end
 
   def create_or_update(conn, %{"id" => id, "data" => data} = _params) do
@@ -36,15 +36,32 @@ defmodule ExDaasWeb.ApiController do
 
   defp data(id) do
     {_uid, table} = ets_table(id)
-    [{_id, data}] = :ets.lookup(table, id)
 
-    data
+    case :ets.lookup(table, id) do
+      [] -> nil
+      [{_id, data}] -> data 
+    end
   end
 
   defp ets_table(id) do
-    uid = Counter.new_id(id)
+    uid = is_num_or_nil(id) |> Counter.new_id()
     shard = rem(uid, length(@ets_tables))
 
     {uid, Enum.at(@ets_tables, shard)}
+  end
+
+  defp is_num_or_nil(id) do
+    case is_number(id) do
+      true -> id
+
+      false ->
+        case is_nil(id) do
+          true -> nil
+
+          false ->
+            {num_id, _} = Integer.parse(id)
+            num_id
+        end
+    end
   end
 end

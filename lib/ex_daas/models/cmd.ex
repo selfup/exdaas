@@ -2,27 +2,29 @@ defmodule ExDaas.Cmd.Model do
   def exe(query, keys, data) do
     case query do
       "ONLY" ->
-        single_or_more(keys, data)
+        only(keys, data)
+
+      "FILTER_BOOL" ->
+        filter_bool(keys, data)
 
       _not_supported ->
         :error
     end
   end
 
-  def single_or_more(keys, data) do
-    case keys |> length do
-      1 ->
-        value = Map.get(data, Enum.at(keys, 0))
+  defp only(keys, data) do
+    values =
+      Enum.map(keys, fn key ->
+        Map.get(data, key)
+      end)
 
-        %{values: [value]}
+    %{values: values}
+  end
 
-      _anything_greater_than_one ->
-        values =
-          Enum.map(keys, fn key ->
-            Map.get(data, key)
-          end)
+  defp filter_bool(keys, data) do
+    %{"key" => key, "by" => by} = keys
 
-        %{values: values}
-    end
+    Map.get(data, key)
+    |> Enum.filter(fn val -> Map.get(val, by) end)
   end
 end

@@ -17,11 +17,22 @@ defmodule ExDaasWeb.ApiControllerTest do
     build_conn() |> post("/api", id: id, data: %{color: "blue"})
   end
 
+  def post_list_query() do
+    build_conn()
+    |> post("/api",
+      id: nil,
+      data: %{colors: [
+        %{"type" => "blue", "is_blue" => true},
+        %{"type" => "red", "is_blue" => false},
+      ]}
+    )
+  end
+
   def get_query(id) do
     build_conn() |> get("/api", id: id)
   end
 
-  def only_cmd_query(id, query, keys) do
+  def cmd_query(id, query, keys) do
     build_conn() |> get("/api/cmd", id: id, cmd: %{query: query, keys: keys})
   end
 
@@ -74,7 +85,7 @@ defmodule ExDaasWeb.ApiControllerTest do
   test "GET /api/cmd - grabs on color from data Map" do
     post_query()
 
-    result = json_response(only_cmd_query(1, "ONLY", ["color"]), 200)
+    result = json_response(cmd_query(1, "ONLY", ["color"]), 200)
 
     assert result == %{"values" => ["blue"]}
   end
@@ -82,7 +93,7 @@ defmodule ExDaasWeb.ApiControllerTest do
   test "GET /api/cmd - returns 200 when more than one ONLY value is provided - even if value is invalid" do
     post_query()
 
-    result = json_response(only_cmd_query(1, "ONLY", ["color", "uhh oh"]), 200)
+    result = json_response(cmd_query(1, "ONLY", ["color", "uhh oh"]), 200)
 
     assert result == %{"values" => ["blue", nil]}
   end
@@ -90,8 +101,16 @@ defmodule ExDaasWeb.ApiControllerTest do
   test "GET /api/cmd - returns 500 when query is not supported" do
     post_query()
 
-    result = json_response(only_cmd_query(1, "NOPE", []), 500)
+    result = json_response(cmd_query(1, "NOPE", []), 500)
 
     assert result == %{"message" => "NOPE not supported"}
+  end
+
+  test "GET /api/cmd - FILTER_BOOL" do
+    post_list_query()
+
+    result = json_response(cmd_query(1, "FILTER_BOOL", %{key: "colors", by: "is_blue"}), 200)
+
+    assert result == [%{"is_blue" => true, "type" => "blue"}]
   end
 end

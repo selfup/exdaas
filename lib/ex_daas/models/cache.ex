@@ -40,8 +40,11 @@ defmodule ExDaas.Cache.Model do
 
   defp already_in(id, data, id_data, ets_table, dets_table) do
     case Map.equal?(data, id_data) do
-      true -> data
-      false -> set(id, id_data, ets_table, dets_table)
+      true ->
+        data
+
+      false ->
+        set(id, data, ets_table, dets_table)
     end
   end
 end
