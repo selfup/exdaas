@@ -1,11 +1,17 @@
+ARCHIVE=archive.tar.gz
+
+if [ !$DETS_ROOT ]
+then
+  DETS_ROOT=./persistance_dir
+fi
+
 function createArchive() {
-  cp -R dets_* ./archive \
-    && tar -zcvf archive.tar.gz ./archive
+    tar -zcvf $ARCHIVE $DETS_ROOT
 }
 
-if [ -d archive ]
+if [ -f $ARCHIVE ]
 then
-  rm -rf archive.tar.gz && createArchive
+  rm $ARCHIVE && createArchive
 else
-  mkdir archive && createArchive
+  createArchive
 fi

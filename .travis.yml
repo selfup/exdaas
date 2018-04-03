@@ -1,5 +1,8 @@
 language: elixir
 
+before_install:
+  - ./scripts/first.boot.sh
+
 elixir:
   - '1.6.4'
 otp_release:

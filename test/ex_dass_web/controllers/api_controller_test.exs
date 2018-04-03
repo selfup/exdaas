@@ -1,12 +1,19 @@
 defmodule ExDaasWeb.ApiControllerTest do
+  alias ExDaas.Cache.Counter.Model, as: Counter
   use ExDaasWeb.ConnCase
 
   setup do
-    :ets.delete_all_objects(:ets_table_0) && :ets.delete_all_objects(:ets_table_1) &&
-      :ets.delete_all_objects(:ets_table_2) && :ets.delete_all_objects(:ets_table_3) &&
-      :dets.delete_all_objects(:dets_table_0) && :dets.delete_all_objects(:dets_table_1) &&
-      :dets.delete_all_objects(:dets_table_2) && :dets.delete_all_objects(:dets_table_3) &&
-      :ets.delete_all_objects(:ets_counter) && :dets.delete_all_objects(:dets_counter)
+    Counter.make_tables(0..3, :ets)
+    |> Enum.each(fn t -> :ets.delete_all_objects(t) end)
+    
+    Counter.make_tables(0..3, :dets)
+    |> Enum.each(fn t -> :dets.delete_all_objects(t) end)
+    
+    ets_counter = :ets_counter
+    :ets.delete_all_objects(ets_counter)
+
+    dets_counter = :"#{Counter.dets_root}/dets_counter"
+    :dets.delete_all_objects(dets_counter)
   end
 
   def post_query() do

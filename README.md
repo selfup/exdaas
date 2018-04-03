@@ -45,6 +45,18 @@ Run: `./scripts/secret.sh && APP_NAME=<app_name> heroku container:push web --app
 Or use the script: `APP_NAME=<app_name> ./scripts/heroku.sh`
 -->
 
+### Development
+
+Deps: Docker/Elixir/Bash Script Runner
+
+**On first boot**:
+
+`./scripts/test.sh`
+
+This will ensure everything is installed, create a docker container (Alpine), and that all needed directories are made. Essentially the _bootstrapping_ script.
+
+Called test, because it ensures that your dev enviornment is ready to roll, and it runs tests :smile:
+
 ### Deploying to Digital Ocean/Vultr/EC2
 
 Make sure you have your ssh key as an authorized key for your target node!
@@ -66,6 +78,12 @@ Make sure you have your ssh key as an authorized key for your target node!
 
 1. Tarball: `./scripts/archive.tar.sh`
 2. Zip: `./scripts/achrive.zip.sh`
+
+You may pass `DETS_ROOT`:
+
+Example:
+
+`DETS_ROOT=/home/user/my_persistance_dir ./scripts/archive.tar.sh`
 
 ### Current Benchmarks
 

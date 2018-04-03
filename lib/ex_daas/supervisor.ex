@@ -1,7 +1,7 @@
 defmodule ExDaas.Supervisor do
   alias ExDaas.Ets.Table, as: EtsTable
-  alias ExDaas.Ets.Counter.Table, as: EtsCounter
   alias ExDaas.Dets.Table, as: DetsTable
+  alias ExDaas.Ets.Counter.Table, as: EtsCounter
   alias ExDaas.Cache.Counter.Model, as: Counter
 
   use Supervisor
@@ -30,9 +30,20 @@ defmodule ExDaas.Supervisor do
         worker(EtsTable, [[name: name, dets_table: dets_table]], id: name)
       end)
 
+    ets_counter = :ets_counter
+    dets_counter = :"#{Counter.dets_root}/dets_counter"
+
     counter_tables = [
-      worker(EtsCounter, [[name: :ets_counter]], id: :ets_counter),
-      worker(DetsTable, [[name: :dets_counter, ets_table: :ets_counter]], id: :dets_counter)
+      worker(
+        EtsCounter,
+        [[name: ets_counter]],
+        id: ets_counter
+      ),
+      worker(
+        DetsTable,
+        [[name: dets_counter, ets_table: ets_counter]],
+        id: dets_counter
+      )
     ]
 
     children = ets_tables ++ counter_tables ++ dets_tables

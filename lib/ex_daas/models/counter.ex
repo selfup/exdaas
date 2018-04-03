@@ -3,6 +3,8 @@ defmodule ExDaas.Cache.Counter.Model do
   @ets_counter :ets_counter
   @dets_counter :dets_counter
 
+  @dets_root String.to_atom(System.get_env("DETS_ROOT") || "./persistance_dir")
+
   def new_id(id) do
     case is_number(id) do
       true ->
@@ -15,7 +17,10 @@ defmodule ExDaas.Cache.Counter.Model do
 
   def set_counter(new_count) do
     true = :ets.insert(@ets_counter, {@counter, new_count})
-    :ok = :dets.insert(@dets_counter, {@counter, new_count})
+
+    dets_counter = :"#{dets_root}/#{@dets_counter}"
+    :ok = :dets.insert(dets_counter, {@counter, new_count})
+    
     new_count
   end
 
@@ -39,7 +44,19 @@ defmodule ExDaas.Cache.Counter.Model do
     end
   end
 
-  defp make_tables(nums, type) do
-    Enum.map(nums, fn i -> :"#{to_string(type)}_table_#{i}" end)
+  def dets_root do
+    @dets_root
+  end
+
+  def make_tables(nums, type) do
+    Enum.map(nums, fn i ->
+      case type do
+        :ets ->
+          :"#{to_string(type)}_table_#{i}"
+
+        :dets ->
+          :"#{@dets_root}/#{to_string(type)}_table_#{i}"
+      end
+    end)
   end
 end
