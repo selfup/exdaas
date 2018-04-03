@@ -1,11 +1,22 @@
+# phoenix stuff
+_build
+deps
+test
+scripts
+
+# dev files
 .git
+.gitignore
 *Dockerfile*
 *docker-compose*
-_build
-erl_crash.dump
-scripts
-test
+*.yml
+*.dump
 *.log
+*.zip
+*.tar.gz
+*.log
+*.md
 
 # ignore local DETS data
-exdaas_*
+*dets_*
+persistance_dir

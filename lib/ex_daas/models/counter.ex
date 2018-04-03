@@ -18,8 +18,8 @@ defmodule ExDaas.Cache.Counter.Model do
   def set_counter(new_count) do
     true = :ets.insert(@ets_counter, {@counter, new_count})
 
-    dets_counter = :"#{dets_root}/#{@dets_counter}"
-    :ok = :dets.insert(dets_counter, {@counter, new_count})
+    dets_root = :"#{@dets_root}/#{@dets_counter}"
+    :ok = :dets.insert(dets_root, {@counter, new_count})
     
     new_count
   end

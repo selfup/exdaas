@@ -45,9 +45,9 @@ Called test, because it ensures that your dev enviornment is ready to roll, and 
 
 _Heroku will not keep the `dets_*` files on reboot/rebuild since it is not in git history_
 
-Make sure the container builds!
+Make sure the container builds (heroku will rebuild it anyways but just be sure it works)!
 
-`./scripts/prod.sh`
+`./scripts/test.sh`
 
 ### If not logged in to Heroku
 
@@ -56,13 +56,7 @@ heroku login
 heroku container:login
 ```
 
-Now: `heroku container:push web --app <app_name>`
-
-### Heroku Deploys after first successful login/push
-
-Run: `./scripts/secret.sh && heroku container:push web --app <app_name>`
-
-Or use the script: `APP_NAME=<app_name> ./scripts/heroku.sh`
+Now: `APP_NAME=<app_name> ./scripts/heroku.sh`
 
 ## Deploying to Digital Ocean/Vultr/EC2
 
