@@ -66,15 +66,16 @@ Make sure you have your ssh key as an authorized key for your target node!
 ### Build the release with Docker
 
 1. In one shell: `./scripts/docker.release.sh`
-2. In another shell (once release is built): `./scripts/docker.copy.release.sh`
-4. Grab tarball and scp: `scp -r ./exdaas.tar.gz user@<target_ip>:/home/user`
-5. SSH into your server: `ssh user@<target_ip>`
-6. Unpack the tarball: `tar -xzf exdaas.tar.gz`
-7. Run the server:
+1. In another shell (once release is built): `./scripts/docker.copy.release.sh`
+1. Grab tarball and scp: `scp -r ./exdaas.tar.gz user@<target_ip>:/home/user`
+1. SSH into your server: `ssh user@<target_ip>`
+1. Unpack the tarball: `tar -xzf exdaas.tar.gz`
+1. Make your DETS_ROOT directory: `mkdir -p $DETS_ROOT`
+1. Run the server:
 
-        a. As a Daemon: `PORT=4000 ./bin/exdaas start`
-        b. In the foreground: `PORT=4000 ./bin/exdaas foreground`
-        c. In interactive mode: `PORT=4000 ./bin/exdaas console`
+        a. As a Daemon: `DETS_ROOT=<dets_root> PORT=<port> ./bin/exdaas start`
+        b. In the foreground: `DETS_ROOT=<dets_root> PORT=<port> ./bin/exdaas foreground`
+        c. In interactive mode: `DETS_ROOT=<dets_root> PORT=<port> ./bin/exdaas console`
 
 ## Backing up data
 
