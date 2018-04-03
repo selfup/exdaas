@@ -20,16 +20,17 @@ Example supervision tree of a default shard size (4):
 
 _Suprisingly performant_ :smile:
 
-<!--
-### Deploying to Heroku
+## Deploying to Heroku
 
-**You will need Docker for this**
+**WARNING: THIS SHOULD ONLY BE FOR TESTING PURPOSES**
+
+_Heroku will not keep the `dets_*` files on reboot/rebuild since it is not in git history_
 
 Make sure the container builds!
 
 `./scripts/prod.sh`
 
-#### If not logged in to Heroku
+### If not logged in to Heroku
 
 ```bash
 heroku login
@@ -38,14 +39,13 @@ heroku container:login
 
 Now: `APP_NAME=<app_name> heroku container:push web --app $APP_NAME`
 
-#### Heroku Deploys after first successful login/push
+### Heroku Deploys after first successful login/push
 
 Run: `./scripts/secret.sh && APP_NAME=<app_name> heroku container:push web --app $APP_NAME`
 
 Or use the script: `APP_NAME=<app_name> ./scripts/heroku.sh`
--->
 
-### Development
+## Development
 
 Deps: Docker/Elixir/Bash Script Runner
 
@@ -57,11 +57,12 @@ This will ensure everything is installed, create a docker container (Alpine), an
 
 Called test, because it ensures that your dev enviornment is ready to roll, and it runs tests :smile:
 
-### Deploying to Digital Ocean/Vultr/EC2
+## Deploying to Digital Ocean/Vultr/EC2
 
+Make sure you have Docker and docker-compose!
 Make sure you have your ssh key as an authorized key for your target node!
 
-#### Building a release with Docker
+### Build the release with Docker
 
 1. In one shell: `./scripts/docker.release.sh`
 2. In another shell (once release is built): `./scripts/docker.copy.release.sh`
@@ -74,7 +75,7 @@ Make sure you have your ssh key as an authorized key for your target node!
         b. In the foreground: `PORT=4000 ./bin/exdaas foreground`
         c. In interactive mode: `PORT=4000 ./bin/exdaas console`
 
-### Backing up data
+## Backing up data
 
 1. Tarball: `./scripts/archive.tar.sh`
 2. Zip: `./scripts/achrive.zip.sh`
@@ -85,7 +86,7 @@ Example:
 
 `DETS_ROOT=/home/user/my_persistance_dir ./scripts/archive.tar.sh`
 
-### Current Benchmarks
+## Current Benchmarks
 
 ~13k req/s in an Alpine Docker Container running on Ubuntu 17.10 in production mode on a 2 Core Intel i7 from 2013
 
@@ -100,7 +101,7 @@ Core(s) per socket:  2
 Socket(s):           1
 ```
 
-#### To run benchmarks
+### To run benchmarks
 
 You will need two tabs/panes/shell for this:
 
@@ -112,7 +113,7 @@ You will need two tabs/panes/shell for this:
         b. Ex: `./scripts/bench.sh -c`
         c. Otherwise the `.results.log` file will be checked out
 
-#### Another Alternative for Benching
+### Another Alternative for Benching
 
 _Default sharding is set to 4_
 
@@ -155,7 +156,7 @@ end)
 
 Exit the shell and `rm dets_*`
 
-### LICENSE
+## LICENSE
 
 **MIT**
 
