@@ -28,7 +28,11 @@ Deps: Docker/Elixir/Bash Script Runner
 
 `./scripts/test.sh`
 
-This will ensure everything is installed, create a docker container (Alpine), and that all needed directories are made. Essentially the _bootstrapping_ script.
+1. This will ensure everything is installed
+2. Create an Alpine Docker Container
+3. Ensure all needed directories are made.
+
+Essentially the _bootstrapping_ script :rocket:
 
 Called test, because it ensures that your dev enviornment is ready to roll, and it runs tests :smile:
 
