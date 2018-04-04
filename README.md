@@ -22,7 +22,11 @@ _Suprisingly performant_ :smile:
 
 ## Development
 
-Deps: Docker/Elixir/Bash Script Runner
+**Deps**:
+
+1. Docker
+1. Elixir
+1. Bash (masOS, Linux, WSL (Win10))
 
 **On first boot**:
 
