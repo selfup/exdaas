@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 LOG_FILE=.results.log
 
 function cflag () {

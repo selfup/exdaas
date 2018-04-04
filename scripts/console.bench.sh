@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 if [ !$DETS_ROOT ]
 then
   DETS_ROOT=./persistance_dir

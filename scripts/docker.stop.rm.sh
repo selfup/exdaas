@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 PS_AQ=$(docker ps -aq)
 IMAGES_Q=$(docker images -q)
 

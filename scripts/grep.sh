@@ -1,2 +1,3 @@
-tail -f .results | grep second
+#!/usr/bin/env bash
 
+tail -f .results | grep second

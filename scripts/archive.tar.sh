@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 ARCHIVE=archive.tar.gz
 
 if [ !$DETS_ROOT ]

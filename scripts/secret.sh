@@ -1,9 +1,4 @@
-# ATTENTION
-
-# this script must be run from project root
-# otherwise the secret will be written in the wrong place
-
-# END OF INSTRUCTIONS
+#!/usr/bin/env bash
 
 function fallback_to_bash() {
     char_set="[:alnum:]"

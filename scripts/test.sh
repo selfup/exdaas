@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 ./scripts/secret.sh
 ./scripts/first.boot.sh
 
