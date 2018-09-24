@@ -1,15 +1,11 @@
 version: '3.1'
 
 services:
-  prod:
+  release:
     build:
       context: .
       dockerfile: Dockerfile
-    command: ./bin/exdaas foreground
-    ports:
-      - "4000:4000"
     volumes:
       - .:/opt/app
     environment:
       - MIX_ENV=prod
-      - PORT=4000

@@ -9,4 +9,4 @@ echo 'GRABBING AND COMPILING DEPENDENCIES' \
     && echo 'TESTING APP' \
     && mix test \
     && echo 'CONTAINER WILL RUN AFTER BEING BUILT' \
-    && docker-compose build \
+    && docker-compose up --build \

@@ -3,7 +3,7 @@ defmodule ExDaas.Cache.Counter.Model do
   @ets_counter :ets_counter
   @dets_counter :dets_counter
 
-  @dets_root String.to_atom(System.get_env("DETS_ROOT") || "./persistance_dir")
+  @dets_root String.to_atom(System.get_env("DETS_ROOT") || "persistance_dir")
 
   def new_id(id) do
     case is_number(id) do
