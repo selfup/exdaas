@@ -6,4 +6,4 @@ before_install:
 elixir:
   - '1.7.3'
 otp_release:
-  - '21.1'
+  - '21.0'
